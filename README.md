@@ -9,4 +9,4 @@ This is release 1, I fully intend to find the remaining splits: Graveyard Path, 
 
 Note that although the three souls do not have individual splits there is an autosplit after you finish donating the guild master's soul ("The Souls of Heroes").
 
-Loading a save is not detected.  If you fuck up, own that shit fam.
+Loading a save is not detected.  If you fuck up, own that shit fam.  Also means you should refrain from pressing Go until the autosave.
