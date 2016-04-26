@@ -21,8 +21,10 @@ startup
 	settings.Add("split29", true, "White Balverine");
 	settings.Add("split30", true, "The Arena");
 	settings.Add("split35", true, "Rescue the Archaeologist");
+	
 	settings.Add("gypath", false, "Graveyard Path (NONFUNCTIONAL)");
 	settings.Add("imprisoned", false, "Imprisoned! Caught by Jack (NONFUNCTIONAL)");
+	
 	settings.Add("split36", true, "Prison Escape");
 	settings.Add("split39", true, "Return to Hook Coast");
 	settings.Add("split43", true, "Try to Stop Jack of Blades");
@@ -38,14 +40,6 @@ startup
 	settings.Add("split53", true, "The Souls of Heroes");
 }
 
-start
-{
-}
-
-reset
-{
-}
-
 split
 {
 	if (current.gameProgress != old.gameProgress) {
@@ -59,21 +53,16 @@ split
 		//Find map ID, compare current to old, split if changed and current is prison map.
 	} else if (current.gameProgress == 0x53) {
 		//Find quest complete window popup value.
+		
 	}
 	return false;
 }
 
 isLoading
 {
-	var autosaving = false;
-	if (settings["autosave"]) {
-		autosaving = current.autosave1 > 0 
+	var autosaving = (current.autosave1 > 0 
 			|| current.autosave2 > 0
-			|| current.autosave3 > 0;
-	}
+			|| current.autosave3 > 0)
+			&& settings["autosave"];
 	return autosaving || current.isLoading;
-}
-
-gameTime
-{
 }
