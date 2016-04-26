@@ -8,3 +8,5 @@ Autosplits are available, check the settings page.  Please note that there is no
 This is release 1, I fully intend to find the remaining splits: Graveyard Path, Imprisonment, Arena Soul, Soul of a Heroine, The Oldest Soul, Dragon Jack.
 
 Note that although the three souls do not have individual splits there is an autosplit after you finish donating the guild master's soul ("The Souls of Heroes").
+
+Loading a save is not detected.  If you fuck up, own that shit fam.
