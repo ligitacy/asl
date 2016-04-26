@@ -11,28 +11,31 @@ startup
 {
 	settings.Add("autosave", true, "AUTOSAVE REMOVAL (BETA)");
 
-	settings.Add("childhood", true, "Childhood");
-	settings.Add("guildtraining", true, "Guild Training");
-	settings.Add("waspqueen", true, "Wasp Queen");
-	settings.Add("orchardfarm", true, "Protect/Attack Orchard Farm");
-	settings.Add("traderescort", true, "Trader Escort");
-	settings.Add("banditseeress", true, "Find the Bandit Seeress");
-	settings.Add("arch1", true, "Find the Archaeologist");
-	settings.Add("whitebalverine", true, "White Balverine");
-	settings.Add("arena", true, "The Arena");
-	settings.Add("arch2", true, "Rescue the Archaeologist");
-	settings.Add("gypath", false, "Graveyard Path");
-	settings.Add("imprisoned", true, "Imprisoned! Caught by Jack");
-	settings.Add("prisonescape", true, "Prison Escape");
-	settings.Add("hookcoast2", true, "Return to Hook Coast");
-	settings.Add("stopjack", true, "Try to Stop Jack of Blades");
-	settings.Add("killjack", true, "Kill Jack.  A poem by Tiny Tina.");
-	settings.Add("fireheart", true, "Prophets of the Fire Heart");
-	settings.Add("ship", true, "Ship of the Drowned");
-	settings.Add("oracle", true, "Oracle of Snowspire");
-	settings.Add("arenasoul", true, "Collecting an Arena Soul");
-	settings.Add("heroinesoul", true, "Collecting a Heroine Soul");
-	settings.Add("oldestsoul", true, "Collecting the Oldest Soul");
+	settings.Add("split1", true, "Childhood");
+	settings.Add("split9", true, "Guild Training");
+	settings.Add("split12", true, "Wasp Queen");
+	settings.Add("split16", true, "Protect/Attack Orchard Farm");
+	settings.Add("split18", true, "Trader Escort");
+	settings.Add("split22", true, "Find the Bandit Seeress");
+	settings.Add("split25", true, "Find the Archaeologist");
+	settings.Add("split29", true, "White Balverine");
+	settings.Add("split30", true, "The Arena");
+	settings.Add("split35", true, "Rescue the Archaeologist");
+	settings.Add("gypath", false, "Graveyard Path (NONFUNCTIONAL)");
+	settings.Add("imprisoned", false, "Imprisoned! Caught by Jack (NONFUNCTIONAL)");
+	settings.Add("split36", true, "Prison Escape");
+	settings.Add("split39", true, "Return to Hook Coast");
+	settings.Add("split43", true, "Try to Stop Jack of Blades");
+	settings.Add("split47", true, "Kill Jack.  A poem by Tiny Tina.");
+	settings.Add("split48", true, "Prophets of the Fire Heart");
+	settings.Add("split51", true, "Ship of the Drowned");
+	settings.Add("split52", true, "Oracle of Snowspire [Autosplit occurs when returning to Scythe]");
+	
+	settings.Add("arenasoul", false, "Collecting an Arena Soul (NONFUNCTIONAL)");
+	settings.Add("heroinesoul", false, "Collecting a Heroine Soul (NONFUNCTIONAL");
+	settings.Add("guildsoul", false, "Collecting the Oldest Soul (NONFUNCTIONAL)");
+	
+	settings.Add("split53", true, "The Souls of Heroes");
 }
 
 start
@@ -46,19 +49,18 @@ reset
 split
 {
 	if (current.gameProgress != old.gameProgress) {
-		switch (current.gameProgress) {
-			case 0x1:
-				return settings["childhood"];
-			case 0x9:
-				return settings["guildtraining"];
-			case 0xC:
-				return settings["waspqueen"];
-			case 0x10:
-				return settings["orchardfarm"];
-			case 0x12:
-				return settings["traderescort"];
-		}
+		return settings["split"+current.gameProgress];
+	} else if (current.gameProgress == 0x23) {	//Between Rescue Arch and end of Prison
+		//GY Path: 
+		//Split when changing to map after circle
+		
+		
+		//Imprisoned
+		//Find map ID, compare current to old, split if changed and current is prison map.
+	} else if (current.gameProgress == 0x53) {
+		//Find quest complete window popup value.
 	}
+	return false;
 }
 
 isLoading
