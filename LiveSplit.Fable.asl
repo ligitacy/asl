@@ -5,7 +5,7 @@ state("Fable")
 	uint autosave1: 0xFB89C0;
 	uint autosave2: 0xFB89E0;
 	uint autosave3: 0xFB89E4;
-	uint isPortingOrFadingIn: 0x007D7148, 0xC;
+	uint isPortingOrFadingIn: 0x007D7148, 0xC; //random values when porting in or fading
 	//Still looking for quests completed value.
 }
 
@@ -69,6 +69,6 @@ isLoading
 			|| current.autosave2 > 0
 			|| current.autosave3 > 0)
 			&& settings["autosave"];
-	var loading = current.isLoading && !current.isPortingOrFadingIn;
+	var loading = current.isLoading && !(current.isPortingOrFadingIn > 0);
 	return autosaving || current.isLoading;
 }
