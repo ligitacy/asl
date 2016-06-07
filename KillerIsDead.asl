@@ -1,7 +1,7 @@
 state("KidGame") {
-	bool loading : 0x3C44CF8;
+	bool playable: 0x3C44CF8;
 }
 
 isLoading {
-	return current.loading;
+	return !current.playable;
 }
