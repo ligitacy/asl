@@ -12,8 +12,7 @@ The following are not:
 
 Autosplitting is in natal stages.  The following splits are available:
 * After every episode, as the ranking screen music begins.  Note that for episode 12 this is long after the end of timing.
-* Auto start (including resetting if timer is running)
-*   Note that the timing is off - auto start comes about 1.3 seconds after you press A on Very Hard
+* Auto start (including resetting if timer is running).  Note that the timing is off - auto start comes about 1.3 seconds after you press A on Very Hard
 
 The following splits are planned:
 * Episode 12 "Release" detection
