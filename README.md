@@ -1,4 +1,4 @@
-## Killer is Dead Autosplitter and Load Remover by blastedt
+# Killer is Dead Autosplitter and Load Remover by blastedt
 
 Load removal is vaguely done.  The following are detected as loads:
 * Full screen loads
@@ -22,7 +22,7 @@ The following splits are planned:
 
 
 
-## Fable: TLC Autosplitter and Load Remover by blastedt
+# Fable: TLC Autosplitter and Load Remover by blastedt
 
 Load removal is done.
 Autosave removal is done but not verified - please watch your timer and make sure it's not pausing inappropriately.
@@ -35,13 +35,13 @@ Note that although the three souls do not have individual splits there is an aut
 
 Loading a save is not detected.  If you fuck up, own that shit fam.  Also means you should refrain from pressing Go until the autosave.
 
-## CHANGELOG:
+# CHANGELOG:
 
-# Fable
+## Fable
 1.0.1 (4/29/16):
 * Started timing the portaling animation.  As a side effect, the fade-in after a map load will now be timed.  Etem says this is 100% consistent, so it shouldn't matter.
 
 
-# Killer is Dead
+## Killer is Dead
 1.0.1 (6/19/16):
 * Autosplit for episodes 1 through 11
