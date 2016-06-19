@@ -4,6 +4,8 @@ Load removal is vaguely done.  The following are detected as loads:
 * Full screen loads
 * Episode intros
 * Those animated cutscenes before episode intros, like the one before e6
+
+
 The following are not:
 * Streamed loads, like the freeze between Episode 3 and Alice
 * Loads where the only indication is the blood spatter on the right side
