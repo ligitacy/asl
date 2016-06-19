@@ -40,12 +40,14 @@ Loading a save is not detected.  If you fuck up, own that shit fam.  Also means 
 # CHANGELOG:
 
 ## Fable
-1.0.1 (4/29/16):
+### 1.0.1 (4/29/16):
 * Started timing the portaling animation.  As a side effect, the fade-in after a map load will now be timed.  Etem says this is 100% consistent, so it shouldn't matter.
 
 
 ## Killer is Dead
-1.0.2 (6/19/16):
+### 1.0.2 (6/19/16):
 * Autostart, autoreset.
-1.0.1 (6/19/16):
+
+
+### 1.0.1 (6/19/16):
 * Autosplit for episodes 1 through 11
