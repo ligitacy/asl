@@ -14,8 +14,6 @@ isLoading {
 }
 
 startup {
-	//refreshRate = 10;	//#stopdebugspam
-	
 	vars.structSize = 0x38; //size of each struct
 	vars.easyOffset = 0x18; //offset of "cleared by difficulty" inside each struct
 
@@ -32,19 +30,36 @@ startup {
 	vars.nextMission = 0;
 	
 	vars.prevPhase = timer.CurrentPhase;	//initialize our phase reading - we need to do actions OnReset() which is not yet supported
+	
+	vars.framecount = 0; //DEBUG LINE
 }
 
 update {
-	//reset next mission to 0 if the timer has stopped running
+	//reset next mission to 0 if the timer has stopped running.
 	if (vars.prevPhase != timer.CurrentPhase && timer.CurrentPhase == TimerPhase.NotRunning) { //OnReset
 		vars.nextMission = 0;
 	}
 	vars.prevPhase = timer.CurrentPhase;
+	
+	vars.framecount += 1;  //use in debug messages with % (arbitrary num) to stop spam
+
 }
 
+reset {
+	if (current.missionData[0x14] != old.missionData[0x14] && current.missionData[0x14] == 0x02) {
+		vars.nextMission = 0; //update wont run between resetting and starting, so do this here too
+		return true;
+	}
+}
+
+start {
+	if (current.missionData[0x14] != old.missionData[0x14] && current.missionData[0x14] == 0x02) {
+		return true;
+	}
+}
 
 split {
-	//skip missions that are not activated in settings
+	//skip missions that are not activated in settings.
 	while (!settings["e" + vars.nextMission]) {
 		vars.nextMission += 1;
 	}
