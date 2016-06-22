@@ -60,11 +60,11 @@ start {
 
 split {
 	//skip missions that are not activated in settings.
-	while (!settings["e" + vars.nextMission]) {
+	while (vars.nextMission <= vars.keyMissions.Length && !settings["e" + vars.nextMission]) {
 		vars.nextMission += 1;
 	}
 	//this specifically happens once we hit episode 12.  We do not split episode 12 this way.
-	if (vars.keyMissions.Length <= vars.nextMission) {
+	if (vars.nextMission >= vars.keyMissions.Length) {
 		return false; //something went wrong, shouldnt split
 	}
 	//which struct in the global MissionData array we want to target
