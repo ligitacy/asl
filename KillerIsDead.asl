@@ -1,8 +1,8 @@
 state("KidGame") {
 	//playable is false when we're in a full loading screen or episode intro (including the few anime intros, like before e6)
 	bool playable 			: 0x03C44CF8;
-	//MissionData is a 0x38 byte struct in an array. We are interested in indexes 0 through 0x15 of that array. 0x38 * 0x15 is 1176 decimal
-	byte1176 missionData 	: 0x03DB83B8, 0xC, 0x1A0, 0x48, 0x404, 0x34;
+	//MissionData is a 0x38 byte struct in an array. We are interested in indexes 0 through 0x15 of that array. 0x38 * 0x16 is 1232 decimal
+	byte1232 missionData 	: 0x03DB83B8, 0xC, 0x1A0, 0x48, 0x404, 0x34;
 	
 }
 
