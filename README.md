@@ -49,6 +49,7 @@ Loading a save is not detected.  If you fuck up, own that shit fam.  Also means 
 ## Killer is Dead
 ### 1.0.2 (6/19/16):
 * Autostart, autoreset.
+* (6/21/16): Fixed livesplit crash after episode 11
 
 
 ### 1.0.1 (6/19/16):
