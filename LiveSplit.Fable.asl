@@ -1,17 +1,20 @@
 state("Fable")
 {
-	bool isLoading: 0x00FB8794, 0x8, 0x17C, 0x8, 0xC, 0x128;
-	uint gameProgress: 0xFBAE30;
-	uint autosave1: 0xFB89C0;
-	uint autosave2: 0xFB89E0;
-	uint autosave3: 0xFB89E4;
+	bool isLoading: 	0x00FB8794, 0x8, 0x17C, 0x8, 0xC, 0x128;
+	uint gameProgress: 	0xFBAE30;
+	uint autosave1: 	0xFB89C0;
+	uint autosave2: 	0xFB89E0;
+	uint autosave3: 	0xFB89E4;
 	uint isPortingOrFadingIn: 0x007D7148, 0xC; //random values when porting in or fading
+	uint renown:		0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x78;
+	uint gold:			0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x3C;
+	int alignment:		0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x28; //mystery struct holds all the answers
 	//Still looking for quests completed value.
 }
 
 startup
 {
-	settings.Add("autosave", true, "AUTOSAVE REMOVAL (BETA)");
+	//settings.Add("autosave", true, "AUTOSAVE REMOVAL (BETA)");
 
 	settings.Add("split1", true, "Childhood");
 	settings.Add("split9", true, "Guild Training");
@@ -24,8 +27,8 @@ startup
 	settings.Add("split30", true, "The Arena");
 	settings.Add("split35", true, "Rescue the Archaeologist");
 	
-	settings.Add("gypath", false, "Graveyard Path (NONFUNCTIONAL)");
-	settings.Add("imprisoned", false, "Imprisoned! Caught by Jack (NONFUNCTIONAL)");
+	settings.Add("gypath", true, "Graveyard Path");
+	settings.Add("imprisoned", false, "Imprisoned! Caught by Jack");
 	
 	settings.Add("split36", true, "Prison Escape");
 	settings.Add("split39", true, "Return to Hook Coast");
@@ -35,30 +38,93 @@ startup
 	settings.Add("split51", true, "Ship of the Drowned");
 	settings.Add("split52", true, "Oracle of Snowspire [Autosplit occurs when returning to Scythe]");
 	
-	settings.Add("soul25", false, "Collecting an Arena Soul (NONFUNCTIONAL)");
-	settings.Add("soul26", false, "Collecting a Heroine Soul (NONFUNCTIONAL");
-	settings.Add("soul27", false, "Collecting the Oldest Soul (NONFUNCTIONAL)");
+	settings.Add("soul1", true, "Collecting an Arena Soul");
+	settings.Add("soul2", true, "Collecting a Heroine Soul");
+	settings.Add("soul3", true, "Collecting the Oldest Soul");
 	
-	settings.Add("split53", true, "The Souls of Heroes");
+	settings.Add("split53", false, "The Souls of Heroes");
+	
+	settings.Add("mask", true, "The Final Battle");
+	
+	vars.didPath = false;
+	vars.didImprisoned = false;
+	vars.didSouls = 0;//
+	vars.gotStuff = false;
+	vars.shouldStart = false;
+}
+
+update {
+	//print(""+current.renown);
+	bool gpCheck = current.gameProgress == 0;
+	bool goldCheck = current.gold == 0;
+	bool alignmentCheck = current.alignment == 0;
+	bool oldAutosave = (old.autosave1 > 0 
+			|| old.autosave2 > 0
+			|| old.autosave3 > 0);
+	bool curAutosave = (current.autosave1 > 0 
+			|| current.autosave2 > 0
+			|| current.autosave3 > 0);
+	bool autosaveCheck = oldAutosave && !curAutosave;
+	
+	bool reset = gpCheck && goldCheck && alignmentCheck && autosaveCheck;
+	if (reset 
+		|| (timer.CurrentPhase == TimerPhase.NotRunning)) {
+		//reset
+		vars.didPath = false;
+		vars.didImprisoned = false;
+		vars.didSouls = 0;
+	} 
+	if (reset) { 
+		vars.shouldStart = true;
+	} else {
+		vars.shouldStart = false;
+	}
+	
+	
+}
+
+reset {
+	return vars.shouldStart;
+}
+
+start {
+	return vars.shouldStart;
 }
 
 split
 {
 	if (current.gameProgress != old.gameProgress) {
 		return settings["split"+current.gameProgress];
-	} else if (current.gameProgress == 0x23) {	//Between Rescue Arch and end of Prison
+	} else if (current.gameProgress == 35) {	//Between Rescue Arch and end of Prison
 		//GY Path: 
-		//Split when quest completed stat increases (find value before and after) B/A 13/14
-		
+		//Split when renown increases a lot
+		if (current.renown >= old.renown + 200 
+				&& settings["gypath"]
+				&& !vars.didPath) {
+			vars.didPath = true;
+			return true;
+		}
 		
 		//Imprisoned
-		//Same dealio as above.
-	} else if (current.gameProgress == 0x52) {
-		//Split between 24/25 (Thunder), 25/26 (Briar), and 26/27 (GM) quests completed.
-		//if current.questsCompleted != old.questsCompleted return settings["soul"+current.questsCompleted];
-	} else if (current.gameProgress == 0x53) {
-		//Split between 27/28 quests completed.
-		//return current.questsCompleted == 28 && old.questsCompleted == 27
+		//Split when gold decreases to zero
+		if (current.gold != old.gold && current.gold == 0 
+				&& !vars.didImprisoned
+				&& settings["imprisoned"]) {
+			vars.didImprisoned = true;
+			return true;
+		}
+		
+	} else if (current.gameProgress == 52) {
+		//three souls
+		if (current.renown >= old.renown + 1000) {
+			vars.didSouls++;
+			if (vars.didSouls <= 3 && settings["soul"+vars.didSouls])
+				return true;
+		}
+	} else if (current.gameProgress == 53) {
+		if (current.gold >= old.gold + 10000) {
+			return settings["mask"];
+		}
 	}
 	return false;
 }
@@ -67,8 +133,8 @@ isLoading
 {
 	var autosaving = (current.autosave1 > 0 
 			|| current.autosave2 > 0
-			|| current.autosave3 > 0)
-			&& settings["autosave"];
+			|| current.autosave3 > 0);
+			//&& settings["autosave"];
 	var loading = current.isLoading && !(current.isPortingOrFadingIn > 0);
 	return autosaving || current.isLoading;
 }
