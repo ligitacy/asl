@@ -48,8 +48,7 @@ startup
 	
 	vars.didPath = false;
 	vars.didImprisoned = false;
-	vars.didSouls = 0;//
-	vars.gotStuff = false;
+	vars.didSouls = 0;
 	vars.shouldStart = false;
 }
 
