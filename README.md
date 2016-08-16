@@ -1,3 +1,8 @@
+# Autosplitter general information
+These scripts are used when speedrunning various games, completing them as fast as possible. To keep the games competitive, the scripts pause the timer during loads and automatically section the time into "splits" to compare against your previous attempts.
+
+These ASL (autosplitter language) scripts are plugins for the popular timer LiveSplit.  They consist of pointer paths to necessary information inside a game's process.  The paths are followed and read by LiveSplit, and their data is returned to the plug-in and processed to determine whether the timer should be paused during loads or whether the timer should split now.  Paths are usually found with Cheat Engine and its pointer scan tool.  For Killer is Dead, I also decompiled the game using UE Explorer to find the necessary data.
+
 # Killer is Dead Autosplitter and Load Remover by blastedt
 
 Load removal is vaguely done.  The following are detected as loads:
@@ -43,8 +48,8 @@ Loading a save is not detected.  If you fuck up, own that shit fam.  Also means 
 ### 1.1.0 (7/10/16):
 * Auto-start
 * Auto-reset
-* Graveyard Path split (untested but should work)
-* Imprisoned! split (untested)
+* Graveyard Path split
+* Imprisoned! split
 * Three souls splits
 * Dragon Jack split
 
