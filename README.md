@@ -21,11 +21,7 @@ Autosplitting is in natal stages.  The following splits are available:
 * After every episode, as the ranking screen music begins.  Note that for episode 12 this is long after the end of timing.
 * Auto start (including resetting if timer is running).  Note that the timing is off - auto start comes about 1.3 seconds after you press A on Very Hard
 
-The following splits are planned:
-* Episode 12 "Release" detection
-* Transitions between episode and boss
-
-All splits are optional.
+All splits are optional.  Apologies, but I do not plan to continue work on this script.
 
 
 
@@ -33,14 +29,13 @@ All splits are optional.
 
 # Fable: TLC Autosplitter and Load Remover by blastedt
 
-Load removal is done.
-Autosave removal is done but not verified - please watch your timer and make sure it's not pausing inappropriately.
+Load and autosave removal are available.  To prevent teleporter abuse that would be faster loadless but much slower real-time, the teleport animation is included in your time.
 
 Autosplits are available, check the settings page.  If you want a new autosplit, let me know via the Skype or Discord groups.
 
 Auto start and reset are available.
 
-Loading a save is not detected.  If you fuck up, own that shit fam.  Also means you should refrain from pressing Go until the autosave.
+Loading a save is not detected.  If you start your run by loading a save, don't start your timer until the first autosave.
 
 # CHANGELOG:
 
