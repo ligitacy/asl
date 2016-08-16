@@ -1,5 +1,5 @@
 # Autosplitter general information
-These scripts are used when speedrunning various games, completing them as fast as possible. To keep the games competitive, the scripts pause the timer during loads and automatically section the time into "splits" to compare against your previous attempts.
+These scripts are used when speedrunning various games, completing them as fast as possible. To keep the games competitive regardless of hardware, the scripts pause the timer during loads and automatically section the time into "splits" to compare against your previous attempts.
 
 These ASL (autosplitter language) scripts are plugins for the popular timer LiveSplit.  They consist of pointer paths to necessary information inside a game's process.  The paths are followed and read by LiveSplit, and their data is returned to the plug-in and processed to determine whether the timer should be paused during loads or whether the timer should split now.  Paths are usually found with Cheat Engine and its pointer scan tool.  For Killer is Dead, I also decompiled the game using UE Explorer to find the necessary data.
 
