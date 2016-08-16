@@ -1,21 +1,19 @@
 state("Fable")
 {
 	bool isLoading: 	0x00FB8794, 0x8, 0x17C, 0x8, 0xC, 0x128;
-	uint gameProgress: 	0xFBAE30;
+	uint gameProgress: 	0xFBAE30;	//see https://goo.gl/7x4wKE for information
 	uint autosave1: 	0xFB89C0;
 	uint autosave2: 	0xFB89E0;
 	uint autosave3: 	0xFB89E4;
 	uint isPortingOrFadingIn: 0x007D7148, 0xC; //random values when porting in or fading
 	uint renown:		0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x78;
-	uint gold:			0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x3C;
+	uint gold:		0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x3C;
 	int alignment:		0xFB8A1C, 0x8C, 0x10, 0x44, 0x14, 0x28; //mystery struct holds all the answers
 	//Still looking for quests completed value.
 }
 
 startup
 {
-	//settings.Add("autosave", true, "AUTOSAVE REMOVAL (BETA)");
-
 	settings.Add("split1", true, "Childhood");
 	settings.Add("split9", true, "Guild Training");
 	settings.Add("split12", true, "Wasp Queen");
@@ -53,7 +51,8 @@ startup
 }
 
 update {
-	//print(""+current.renown);
+	//a bunch of conditions to detect we just started the game
+	//specifically, a bunch of stuff zeroes out and we finish loading an autosave
 	bool gpCheck = current.gameProgress == 0;
 	bool goldCheck = current.gold == 0;
 	bool alignmentCheck = current.alignment == 0;
@@ -68,18 +67,16 @@ update {
 	bool reset = gpCheck && goldCheck && alignmentCheck && autosaveCheck;
 	if (reset 
 		|| (timer.CurrentPhase == TimerPhase.NotRunning)) {
-		//reset
+		//reset, zero out some internal state
 		vars.didPath = false;
 		vars.didImprisoned = false;
 		vars.didSouls = 0;
 	} 
-	if (reset) { 
+	if (reset) { //pass this information onto other blocks
 		vars.shouldStart = true;
 	} else {
 		vars.shouldStart = false;
 	}
-	
-	
 }
 
 reset {
@@ -133,7 +130,6 @@ isLoading
 	var autosaving = (current.autosave1 > 0 
 			|| current.autosave2 > 0
 			|| current.autosave3 > 0);
-			//&& settings["autosave"];
 	var loading = current.isLoading && !(current.isPortingOrFadingIn > 0);
 	return autosaving || current.isLoading;
 }
