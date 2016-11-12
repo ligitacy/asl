@@ -1,5 +1,5 @@
 state("Matrix") {
-    bool inSaveConfirmation : "Matrix.exe", 0x592E44;
+    bool inSaveConfirmation : "Matrix.exe", 0x57ECDC;
     int gameState: 0xA9A1C8;
 }
 start {
