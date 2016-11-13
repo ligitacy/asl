@@ -112,7 +112,7 @@ split
 		
 	} else if (current.gameProgress == 52) {
 		//three souls
-		if (current.renown >= old.renown + 1000) {
+		if (current.renown >= old.renown + 500) {
 			vars.didSouls++;
 			if (vars.didSouls <= 3 && settings["soul"+vars.didSouls])
 				return true;
