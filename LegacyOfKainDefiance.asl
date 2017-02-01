@@ -57,7 +57,7 @@ split {
 			return settings["split"+(vars.currentSplit++)];
 		}
 	} else {
-		return (current.bossHp == 0) && (current.bossHp != old.bossHp);
+		return (current.bossHp == 0) && (current.bossHp != old.bossHp) && settings["bossdead"];
 	}
 }
 
