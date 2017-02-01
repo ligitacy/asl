@@ -10,8 +10,7 @@ startup {
 	vars.startX = -3621.2f;
 	vars.startY = -1271.6f;
 	vars.leniency = 1.0f;
-	vars.moved = (start, now) => ((start + leniency < now) || (start - leniency > now));
-	vars.splits = {
+	vars.splits = new string[] {
 		"eldergodla",
 		"cemetaryla",
 		"CITADEL10A",
@@ -37,11 +36,12 @@ startup {
 }
 
 update {
-	vars.start = 	( (current.cell == vars.startZone) &&
-						( 
-							(vars.moved(vars.startX, current.x) && !vars.moved(vars.startX, old.x)) ||
-							(vars.moved(vars.startY, current.y) && !vars.moved(vars.startY, old.y))
-						)
+	bool moved_x = ((vars.startX + vars.leniency < current.x) || (vars.startX - vars.leniency > current.x)) &&
+					!((vars.startX + vars.leniency < old.x) || (vars.startX - vars.leniency > old.x));
+	bool moved_y = ((vars.startY + vars.leniency < current.y) || (vars.startY - vars.leniency > current.y)) &&
+					!((vars.startY + vars.leniency < old.y) || (vars.startY - vars.leniency > old.y));
+	vars.start = 	( 	(current.cell == vars.startZone) &&
+						(moved_x || moved_y)
 					);
 	//above: start the timer if we're in the start zone, and we newly moved in either the x or y direction
 
