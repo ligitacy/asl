@@ -37,6 +37,13 @@ Auto start and reset are available.
 
 Loading a save is not detected.  If you start your run by loading a save, don't start your timer until the first autosave.
 
+# Legacy of Kain: Defiance Autosplitter by TheDuriel and blastedt
+
+Autosplitting, start, and reset available.  Code by me and memory addresses found by TheDuriel.  Feel free to contact either of us in event of failure.
+
+The timer starts when you begin moving in the first level.  It splits when you first enter certain maps.  It is extremely trivial to add more potential splits.  If you'd like your
+splits to be added, compile a list and message me on Steam or Discord.
+
 # CHANGELOG:
 
 ## Fable
