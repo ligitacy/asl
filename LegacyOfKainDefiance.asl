@@ -9,7 +9,7 @@ startup {
 	vars.startZone = "shold1a";
 	vars.startX = -3621.2f; //default position for shold1a
 	vars.startY = -1271.6f; //default position for shold1a
-	vars.leniency = 1.0f;
+	vars.leniency = 0.1f;
 	vars.splits = new string[] {
 		"eldergod1a",
 		"cemetery1A",
