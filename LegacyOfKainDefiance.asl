@@ -9,7 +9,7 @@ startup {
 	vars.startZone = "shold1a";
 	vars.startX = -3621.2f; //default position for shold1a
 	vars.startY = -1271.6f; //default position for shold1a
-	vars.leniency = 0.1f;
+	vars.leniency = 0.5f;
 	vars.splits = new string[] {
 		"eldergod1a",
 		"cemetery1A",
@@ -36,16 +36,9 @@ startup {
 }
 
 update {
-	bool moved_x = ((vars.startX + vars.leniency < current.x) || (vars.startX - vars.leniency > current.x)) &&
-					!((vars.startX + vars.leniency < old.x) || (vars.startX - vars.leniency > old.x));
-	bool moved_y = ((vars.startY + vars.leniency < current.y) || (vars.startY - vars.leniency > current.y)) &&
-					!((vars.startY + vars.leniency < old.y) || (vars.startY - vars.leniency > old.y));
-	vars.start = 	( 	(current.cell == vars.startZone) &&
-						(moved_x || moved_y)
-					);
-	//above: start the timer if we're in the start zone, and we newly moved in either the x or y direction
-
-	if (timer.CurrentPhase == TimerPhase.NotRunning || vars.start) {
+	vars.in_start_y = (vars.startY + vars.leniency > current.y) && (vars.startY - vars.leniency < current.y);
+	vars.in_start_x = (vars.startX + vars.leniency > current.x) && (vars.startX - vars.leniency < current.x);
+	if (timer.CurrentPhase == TimerPhase.NotRunning) {
 		vars.currentSplit = 0;
 	}
 }
@@ -62,9 +55,13 @@ split {
 }
 
 reset {
-	return vars.start;
+	if (current.cell == vars.startZone && vars.in_start_y && vars.in_start_x) {
+		vars.currentSplit = 0;
+		return true;
+	}
+	return false;
 }
 
 start {
-	return vars.start;
+	return current.cell == vars.startZone && !(vars.in_start_y && vars.in_start_x);
 }
