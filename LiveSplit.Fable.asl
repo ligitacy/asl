@@ -131,5 +131,5 @@ isLoading
 			|| current.autosave2 > 0
 			|| current.autosave3 > 0);
 	var loading = current.isLoading && !(current.isPortingOrFadingIn > 0);
-	return autosaving || current.isLoading;
+	return autosaving || loading;
 }
