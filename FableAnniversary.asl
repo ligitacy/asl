@@ -1,5 +1,6 @@
 state("Fable Anniversary") {
 	int questsCompleted : 0x322FD00, 0x6C, 0x44, 0x14, 0xc4;
+	int isLoading : 0x322139C, 0x1DC, 0x130;
 }
 
 startup {
@@ -38,6 +39,11 @@ startup {
 	for (int i = 1; i <= 29; i++) {
 		settings.Add("split"+i, true, vars.quests[i]);
 	}
+	vars.inLoad = false;
+}
+
+isLoading {
+	return current.isLoading > 0;
 }
 
 split {
