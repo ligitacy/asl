@@ -1,6 +1,7 @@
 state("Fable Anniversary") {
 	int questsCompleted : 0x322FD00, 0x6C, 0x44, 0x14, 0xc4;
 	int isLoading : 0x322139C, 0x1DC, 0x130;
+	int isLoadingSave: "Fable Anniversary.exe", 0x3230374, 0x08, 0x104;
 }
 
 startup {
@@ -43,9 +44,22 @@ startup {
 }
 
 isLoading {
-	return current.isLoading > 0;
+	if(current.isLoading > 0){
+		return current.isLoading > 0;
+	}
+
+	if(current.isLoadingSave > 0){
+		return current.isLoadingSave > 0;
+	}
+
+	if(current.isLoading == 0 && current.isLoadingSave == 0){
+		return current.isLoading > 0;
+		return current.isLoadingSave > 0;
+	}
 }
 
 split {
-	return old.questsCompleted < current.questsCompleted && settings["split"+current.questsCompleted];
+	if(current.isLoadingSave == 0){
+		return old.questsCompleted < current.questsCompleted && settings["split"+current.questsCompleted];
+	}
 }
