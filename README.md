@@ -58,6 +58,9 @@ splits to be added, compile a list and message me on Steam or Discord.
 ### 1.0.1 (4/29/16):
 * Started timing the portaling animation.  As a side effect, the fade-in after a map load will now be timed.  Etem says this is 100% consistent, so it shouldn't matter.
 
+## Fable: Anniversary
+### April 20, 2021:
+* Pausing while loading saves
 
 ## Killer is Dead
 ### 1.0.2 (6/19/16):
