@@ -44,22 +44,11 @@ startup {
 }
 
 isLoading {
-	if(current.isLoading > 0){
-		return current.isLoading > 0;
-	}
-
-	if(current.isLoadingSave > 0){
-		return current.isLoadingSave > 0;
-	}
-
-	if(current.isLoading == 0 && current.isLoadingSave == 0){
-		return current.isLoading > 0;
-		return current.isLoadingSave > 0;
-	}
+	return current.isLoading || current.isLoadingSave;
 }
 
 split {
-	if(current.isLoadingSave == 0){
+	if (!current.isLoadingSave){
 		return old.questsCompleted < current.questsCompleted && settings["split"+current.questsCompleted];
 	}
 }
