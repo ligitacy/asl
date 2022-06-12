@@ -2,6 +2,9 @@ state("Fable Anniversary") {
 	int questsCompleted : 0x322FD00, 0x6C, 0x44, 0x14, 0xc4;
 	bool isLoading : 0x322139C, 0x1DC, 0x130;
 	bool isLoadingSave: "Fable Anniversary.exe", 0x3230374, 0x08, 0x104;
+	int isStarting: "Fable Anniversary.exe", 0x3232770;
+	float startingX : "Fable Anniversary.exe", 0x322FD00, 0x6c, 0x44, 0x4, 0xc;
+	float startingZ : "Fable Anniversary.exe", 0x322FD00, 0x6c, 0x44, 0x4, 0x10;
 }
 
 startup {
@@ -41,6 +44,14 @@ startup {
 		settings.Add("split"+i, true, vars.quests[i]);
 	}
 	vars.inLoad = false;
+}
+
+start {
+	if(current.startingX >= 3494 && current.startingX <= 3495 && current.startingZ >= 867 && current.startingZ <= 868){
+		if(old.isStarting == 0 && current.isStarting == 1){
+			return true;
+		}
+	}
 }
 
 isLoading {
