@@ -8,7 +8,7 @@ state("Fable Anniversary")
 	bool isLoadingSave: "Fable Anniversary.exe", 0x3230374, 0x08, 0x104;
 	//is in loading screen(no fade) this is to fix an issue with high fps causing the timer to unpasue in loadings after loadwarps
 	bool isInLoadinScreen: "Fable Anniversary.exe", 0x318911C;
-	//prerendered movies
+	//cutscenes/movies
 	bool isStarting: "Fable Anniversary.exe", 0x3232770;
 	//x and z postion
 	float startingX : "Fable Anniversary.exe", 0x322FD00, 0x6c, 0x44, 0x4, 0xc;
@@ -59,7 +59,7 @@ start
 	//checks players positions to see if you are at the start of the game
 	if(current.startingX >= 3494 && current.startingX <= 3495 && current.startingZ >= 867 && current.startingZ <= 868)
 	{
-		//are you in a prerendered movie set as an int to only trigger once rather than though out the movie
+		//are you in a cutscenes movie set as true to only trigger once rather than though out the movie
 		if(old.isStarting == false && current.isStarting == true)
 		{
 			return true;
