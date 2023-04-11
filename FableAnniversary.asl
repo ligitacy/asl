@@ -1,13 +1,22 @@
-state("Fable Anniversary") {
+state("Fable Anniversary") 
+{
+	//amount of quests
 	int questsCompleted : 0x322FD00, 0x6C, 0x44, 0x14, 0xc4;
-	int isLoading : 0x322139C, 0x1DC, 0x130;
-	int isLoadingSave: "Fable Anniversary.exe", 0x3230374, 0x08, 0x104;
-	int isStarting: "Fable Anniversary.exe", 0x3232770;
+	//is loading zone tranfers (fade)
+	bool isLoading : 0x322139C, 0x1DC, 0x130;
+	//is loading save (fade)
+	bool isLoadingSave: "Fable Anniversary.exe", 0x3230374, 0x08, 0x104;
+	//is in loading screen(no fade) this is to fix an issue with high fps causing the timer to unpasue in loadings after loadwarps
+	bool isInLoadinScreen: "Fable Anniversary.exe", 0x318911C;
+	//prerendered movies
+	bool isStarting: "Fable Anniversary.exe", 0x3232770;
+	//x and z postion
 	float startingX : "Fable Anniversary.exe", 0x322FD00, 0x6c, 0x44, 0x4, 0xc;
 	float startingZ : "Fable Anniversary.exe", 0x322FD00, 0x6c, 0x44, 0x4, 0x10;
 }
 
-startup {
+startup 
+{
 	vars.quests = new string[] {
 		"",
 		"Guild Training/Childhood PACKAGE DEAL",
@@ -45,31 +54,29 @@ startup {
 	}
 	vars.inLoad = false;
 }
-start {
-	if(current.startingX >= 3494 && current.startingX <= 3495 && current.startingZ >= 867 && current.startingZ <= 868){
-		if(old.isStarting == 0 && current.isStarting == 1){
+start 
+{
+	//checks players positions to see if you are at the start of the game
+	if(current.startingX >= 3494 && current.startingX <= 3495 && current.startingZ >= 867 && current.startingZ <= 868)
+	{
+		//are you in a prerendered movie set as an int to only trigger once rather than though out the movie
+		if(old.isStarting == false && current.isStarting == true)
+		{
 			return true;
 		}
 	}
 }
 
-isLoading {
-	if(current.isLoading > 0){
-		return current.isLoading > 0;
-	}
-
-	if(current.isLoadingSave > 0){
-		return current.isLoadingSave > 0;
-	}
-
-	if(current.isLoading == 0 && current.isLoadingSave == 0){
-		return current.isLoading > 0;
-		return current.isLoadingSave > 0;
-	}
+isLoading 
+{
+	//checking to see if you are loading a zone transfer, loading a save, or are just in a loading screen
+	return current.isLoading || current.isLoadingSave || current.isInLoadinScreen;
 }
 
-split {
-	if(current.isLoadingSave == 0){
+split 
+{
+	//dont split if you are loading a save
+	if(!current.isLoadingSave){
 		return old.questsCompleted < current.questsCompleted && settings["split"+current.questsCompleted];
 	}
 }
